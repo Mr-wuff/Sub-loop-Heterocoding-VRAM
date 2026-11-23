@@ -1,0 +1,27 @@
+name: Sync audited research archives to Hugging Face
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Hugging Face Hub client
+        run: python -m pip install "huggingface_hub>=0.26"
+      - name: Audit manifest and upload dataset artifacts
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "Missing HF_TOKEN GitHub Actions secret (write permission to wuff-mann/Sub-loop-Heterocoding-VRAM)" >&2
+            exit 1
+          fi
+          python scripts/upload_hf_artifacts.py artifacts --upload

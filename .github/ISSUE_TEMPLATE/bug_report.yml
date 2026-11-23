@@ -1,0 +1,19 @@
+name: Reproduction or numerical issue
+description: Report a crash or numerical mismatch in a research experiment.
+title: "[repro] "
+labels: [reproduction]
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and hardware
+      description: GPU/VRAM, driver, CUDA, PyTorch, Transformers, dependencies
+    validations:
+      required: true
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Minimal reproducer and exact result archive
+      description: Include commands/notebook, expected/actual, logs without tokens or personal information
+    validations:
+      required: true

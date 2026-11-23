@@ -1,0 +1,63 @@
+{
+  "round": "SHV_R55_SYS_Q26_A0",
+  "title": "Activation-only vs D9 vs native checkpointing: a system-level feasibility screen",
+  "status_policy": "HISTORICAL_NONFRESH_DIAGNOSTIC_NO_PROMOTION",
+  "data": "CONTROLLED_12_PRIOR_EXPOSED_PROMPTS_NO_FRESH_QUALITY_DATA",
+  "model_id": "gpt2",
+  "model_layers": 12,
+  "batch_size": 4,
+  "sequence_length": 128,
+  "steps": 8,
+  "pilot_repetitions": 1,
+  "eligible_additional_repetitions": 2,
+  "warmup_steps_excluded": 1,
+  "activation_modes": [
+    "N",
+    "EM4"
+  ],
+  "variants": [
+    "N_FOREACH",
+    "N_CKPT_FOREACH",
+    "EM4_FOREACH",
+    "N_D9",
+    "EM4_D9"
+  ],
+  "optimizer": {
+    "lr": 5e-05,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "eps": 1e-06,
+    "weight_decay": 0.01,
+    "gradient_clip": 1.0,
+    "d9_chunk_elems": 2097152,
+    "d9_group_size": 256
+  },
+  "quality_gates": {
+    "max_relative_train_loss_gap": 0.01,
+    "max_relative_probe_loss_gap": 0.01,
+    "native_checkpoint_initial_loss_abs_tol": 1e-06,
+    "native_checkpoint_final_probe_relative_tol": 0.0001
+  },
+  "engineering_pilot_gates": {
+    "em4_vs_native_memory_saving_min": 0.05,
+    "em4_vs_native_step_time_ratio_max": 1.25
+  },
+  "repeat_validation": {
+    "required_reps": 3,
+    "min_success_reps": 2,
+    "checkpoint_strict_dominance_margin": 0.01
+  },
+  "checkpoint_baseline": "native forward/backward with per-GPT2-block torch.utils.checkpoint(checkpoint,use_reentrant=False), not HF model.forward",
+  "memory_measurement": "peak allocated/reserved for full training step excluding extra final probe; no full-probe peak contamination",
+  "time_measurement": "CUDA synchronized end-to-end forward/backward/clipping/optimizer, median excluding first step, throughput uses input tokens",
+  "update_quality": "relative loss differences for 8-step controlled historical training and fixed non-training diagnostic prompt set, not independent generalization",
+  "no_long_training": true,
+  "sealed_guard": "NOT_TOUCHED",
+  "no_alg_optimization": "No changes to original EM4/D9 math, no Triton sign kernel, no layer search or new codec",
+  "not_equivalent": "PyTorch AdamW uses FP32 m,v; D9 uses compressed quantization and is NOT bitwise-equivalent to FP32 AdamW",
+  "decision": "Only recommend further activation-only B1 if 2/3 memory>=5%, step ratio<=1.25, relative loss<=1%; record checkpoint Pareto separately",
+  "output": "SHV_R55_SYS_Q26_A0_RESULT_UPLOAD_TO_CHATGPT.zip",
+  "failure_policy": "always save partial results with exception details and no promotion"
+}

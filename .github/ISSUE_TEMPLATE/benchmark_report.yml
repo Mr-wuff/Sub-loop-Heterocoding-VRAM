@@ -1,0 +1,21 @@
+name: Benchmark reproduction
+description: Report a complete, independently reproduced SHV measurement.
+title: "[benchmark] "
+body:
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Frozen protocol and source commit
+    validations:
+      required: true
+  - type: textarea
+    id: measurements
+    attributes:
+      label: Full benchmark measurements
+      description: Include peak allocated/reserved, step time/tokens-per-second, numeric fidelity, baseline and run count
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Result archive and checksum

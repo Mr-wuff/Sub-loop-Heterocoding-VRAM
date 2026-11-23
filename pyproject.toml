@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shv-research-preview"
+version = "0.1.0.dev0"
+description = "Reproducibility and experiment-evidence utilities for SHV research"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+shv-evidence = "shv_preview.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+shv_preview = ["data/*.csv", "data/*.json"]

@@ -4,9 +4,9 @@
 
 SHV investigates whether a model can retain **smaller, consumer-specific backward states** instead of keeping every original forward intermediate in GPU memory. The research asks what information a later gradient calculation actually needs, how to encode it, and when decoding or recomputation costs outweigh the saved memory.
 
-This repository preserves implementations, measurement protocols, and positive **and negative** results from experiments on GPT-2 Small. Its current Python package provides **evidence-inspection tools**, not a drop-in PyTorch replacement or a general GPU-memory extension.
+This repository preserves implementations, measurement protocols, and positive **and negative** results from experiments on GPT-2 Small. Its current Python package provides **evidence-inspection tools**, not a drop-in PyTorch replacement or a general GPU-memory extension. Selected original result archives are organized at the [Hugging Face artifact repository](https://huggingface.co/datasets/wuff-mann/Sub-loop-Heterocoding-VRAM).
 
-> **Publication status:** this public repository is an experimental research preview. Code licensing and formal release are still under review. Benchmarks below are historical results with archived evidence; no shipping 2× VRAM multiplier, universal inference support, or faster training is claimed.
+> **Publication status:** this is a public research-preview repository, **not** a released production runtime. The software license is pending confirmation. All benchmarks are historical, scope-limited measurements; no 2× VRAM multiplier, universal inference support, or training-speed advantage is claimed.
 
 ## What is the underlying idea?
 
@@ -59,7 +59,7 @@ The following are **different measurement scopes** and must not be conflated. De
 | **R60, tiled output loss** | GPT-2 Small; T4; seq 512; AdamW8bit+checkpointing; FULL cross entropy | 2001.27 → 1421.98 MiB (28.95% less peak allocated), with 9.84% more step time | **Existing/public optimization family, not an SHV originality claim.** |
 | **R62, tiled vs Liger** | GPT-2 Small; T4; seq 512; 3 paired runs | TILED median step time ≈12.04% lower; memory ≈0.0084% lower | No material (>5%) memory advantage; limited hardware/workload. |
 
-Numerical checks from short runs are not evidence of long-run convergence or equal final model quality. The full provenance, protocols and per-run results are in `benchmarks/` and the [companion HF research artifact repository](https://huggingface.co/datasets/wuff-mann/Sub-loop-Heterocoding-VRAM).
+Numerical checks from short runs are not evidence of long-run convergence or equal final model quality. The full provenance, protocols and per-run results are in `benchmarks/` and the [companion HF artifact repository](https://huggingface.co/datasets/wuff-mann/Sub-loop-Heterocoding-VRAM).
 
 ### What failed (and why we keep those results)
 
@@ -72,7 +72,7 @@ Numerical checks from short runs are not evidence of long-run convergence or equ
 
 We archive these results to make future design decisions falsifiable rather than repeatedly retuning variants that failed.
 
-## What is included in this release candidate?
+## Repository contents (research preview)
 
 ```text
 src/shv_preview/        Evidence-checking CLI only (CPU / standard library)
@@ -147,6 +147,6 @@ Issues with a minimal reproducer, raw `max_memory_allocated`/reserved data, soft
 
 ## License, credit, and publication status
 
-**No code license has yet been selected or granted in this candidate.** Before public release, choose and add an OSI-approved `LICENSE` file and review third-party copyrights and any patent plans. See [LICENSE_SELECTION_REQUIRED](LICENSE_SELECTION_REQUIRED.md). Do not redistribute this candidate as already licensed open-source software until that decision is made.
+**Software licensing remains pending.** This public repository does not yet grant a code reuse license. Before labeling it as an OSI-licensed release, select and add an approved `LICENSE` file and review third-party copyrights and any patent plans. See [LICENSE_SELECTION_REQUIRED](LICENSE_SELECTION_REQUIRED.md). Do not interpret public source visibility as an open-source reuse grant until that decision is made.
 
-Reproduction sources are provided with SHA-256 provenance. Release version `v0.1.0-research-preview` is a **draft tag**, not an already published release. Citation metadata will be completed after the author confirms the preferred name/organization. No HF model weights are published by this project.
+Reproduction sources are provided with SHA-256 provenance. The proposed `v0.1.0-research-preview` tag is a **draft**, not a published GitHub Release. Citation metadata will be completed after the author confirms the preferred name/organization. No HF model weights are published by this project.

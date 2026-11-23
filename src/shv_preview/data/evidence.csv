@@ -1,0 +1,14 @@
+round,evidence_state,claim,measured_result,scope,hf_evidence_round,required_qualification
+R5A0,Verified (specific scope),MLP/LN2 subgraph forward-resident reduction,93.113%,Tesla T4; batch=8; 12 accumulated subgraphs,R5A0,"Subgraph only; custom autograd, not full GPT-2 train peak"
+R5A0,Verified (specific scope),MLP/LN2 subgraph full-step peak allocated reduction,52.962%,Tesla T4; batch=8; subgraph workload,R5A0,Throughput ~0.460x native; not entire model
+R47,Observed / fresh short,EM4+D9 peak allocated reduction vs Native+D9,14.697%,GPT-2 Small; T4; batch=4; seq=128; 3 disjoint 16-step data orders,R47,~8.7-8.8x slower than ordinary NC control; not speed advantage
+R47,Observed / fresh short,Max relative fixed probe loss gap vs NC,0.5767%,GPT-2 Small; same pretrained initialization; disjoint data orders,R47,Short-run only; not long-term convergence
+R57,Verified (specific scope),EM4 isolated-process peak saving vs native at seq 512,30.85%,T4; batch=4; seq=512; FP32 AdamW foreach,R57,Checkpoint: ~41.45% saving and faster than EM4
+R58_FIX2,Verified (specific scope),D9 persistent state vs FP32 AdamW,256.82 vs 949.40 MiB,GPT-2 Small; T4; AdamW states only,R58_FIX2,D9 state larger than 8-bit AdamW ~241.75 MiB
+R58_FIX2,Verified negative,D9 vs AdamW8bit (strong baseline),5.33x / 2.46x slower at S128/S512,GPT-2 Small; T4; same runtime; per-step timings,R58_FIX2,D9 peak also higher at S128/S512; not competitive
+R60,Verified (specific scope),TILED output CE peak saving vs FULL,28.95%,GPT-2 Small; T4; batch=4; seq=512; AdamW8bit+checkpoint,R60,Public technique; ~9.84% extra step time
+R62,Verified (specific scope),TILED relative step time vs Liger,~12.04% lower median,T4; GPT-2 Small; S512; 3 paired repeats; 3 warmup+7 measured,R62,Baseline-specific; not proof of universal faster implementation
+R62,Verified negative,TILED peak allocated saving relative to Liger,0.0084% (~0.119 MiB),T4; GPT-2 Small; S512; same environment,R62,Fails preregistered >=5% incremental memory threshold
+R63,Planned / unverified,Live-set memory snapshot optimization,no result,"Notebook proposed after R62, no uploaded GPU results",none,No SHV gain or new algorithm may be claimed
+Full runtime,Unknown,16 GB GPU equivalent to 32 GB,no result,No matched OOM frontier or long training quality evidence,none,DO NOT CLAIM
+General inference,Unknown,Inference memory reduction,no matched inference test,No validated inference/runtime integration in supplied evidence,none,DO NOT CLAIM

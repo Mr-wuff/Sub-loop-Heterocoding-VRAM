@@ -1,6 +1,6 @@
 # Companion Hugging Face research artifacts
 
-The benchmark archive is a **dataset-type** repository (no trained weights):
+The companion benchmark archive is a **dataset-type** repository (no trained weights). The canonical 7-result read-only mirror is currently included here in `artifacts/` for immediate verification; HF synchronization is separately tracked:
 
 https://huggingface.co/datasets/wuff-mann/Sub-loop-Heterocoding-VRAM
 

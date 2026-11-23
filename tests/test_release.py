@@ -23,4 +23,14 @@ class PreviewTest(unittest.TestCase):
         p=Path(__file__).resolve().parents[1]/'benchmarks/EVIDENCE_MANIFEST.json'
         j=json.loads(p.read_text())
         self.assertEqual(len(j['records']),7)
+    def test_artifact_mirror(self):
+        root=Path(__file__).resolve().parents[1]/'artifacts'
+        j=json.loads((root/'manifest.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(j['artifacts']),7)
+        for row in j['artifacts']:
+            f=root/row['path']
+            self.assertTrue(f.exists())
+            self.assertEqual(hashlib.sha256(f.read_bytes()).hexdigest(),row['sha256'])
+            with zipfile.ZipFile(f) as z:
+                self.assertIsNone(z.testzip())
 if __name__=='__main__':unittest.main()

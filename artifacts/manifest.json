@@ -1,0 +1,72 @@
+{
+  "project": "SHV (Sub-loop Heterocoding VRAM)",
+  "artifact_repo_type": "benchmark-records/dataset",
+  "archive_status": "prepared_for_existing_repository_upload",
+  "source_location": "user-provided experiment artifacts",
+  "created": "2026-11-23",
+  "artifacts": [
+    {
+      "round": "R5A0",
+      "topic": "subgraph_autograd",
+      "path": "results/R5A0/SHV_R1A_R5A0_RESULT_UPLOAD_TO_CHATGPT.zip",
+      "sha256": "6d445bb0d1ed030a1ba4ccc494315f3d6b1b4b258dc20a6e863e0ff57f3df8c0",
+      "bytes": 25470,
+      "zip_members": 14,
+      "description": "Subgraph MLP/LN2 actual CUDA memory and custom autograd"
+    },
+    {
+      "round": "R47",
+      "topic": "fresh_short_trajectory",
+      "path": "results/R47/SHV_R47_FRESH_B0_RESULT_UPLOAD_TO_CHATGPT.zip",
+      "sha256": "33a81387f8d3fb5e98afc023abf01bb3f2ccbde4193ab19c0b6b67779abae11b",
+      "bytes": 19473,
+      "zip_members": 10,
+      "description": "Short fresh-data EM4+D9 pilot; not long-run quality"
+    },
+    {
+      "round": "R57",
+      "topic": "isolated_activation_baseline",
+      "path": "results/R57/SHV_R57_ACT_Q28_A0_RESULT_UPLOAD_TO_CHATGPT.zip",
+      "sha256": "314f9a534551ef285ad0554e8eacb8b3f7be9c8ccdc6692a058ff2e8bd177e56",
+      "bytes": 15858,
+      "zip_members": 9,
+      "description": "Independent-process activation comparison with checkpointing"
+    },
+    {
+      "round": "R58_FIX2",
+      "topic": "optimizer_strong_baseline",
+      "path": "results/R58_FIX2/SHV_R58_OPT_Q29_A0_FIX2_RESULT_UPLOAD_TO_CHATGPT.zip",
+      "sha256": "7ca22a4c52bd04572f982b80d37d60e03c363389417bc00b5e1d773760552239",
+      "bytes": 21822,
+      "zip_members": 16,
+      "description": "D9 vs true 8-bit AdamW, same-runtime negative result"
+    },
+    {
+      "round": "R60",
+      "topic": "consumer_loss_prequalification",
+      "path": "results/R60/SHV_R60_LC_Q31_A0_RESULT_UPLOAD_TO_CHATGPT.zip",
+      "sha256": "a665eac097aea808d0a087dc6ffd3dc132283bba907fcf4752a596f24c99c0af",
+      "bytes": 10449,
+      "zip_members": 11,
+      "description": "Tiled/recomputed cross entropy vs full, public-system optimization"
+    },
+    {
+      "round": "R61_FIX1",
+      "topic": "public_liger_baseline",
+      "path": "results/R61_FIX1/SHV_R61_BASE_Q32_A0_FIX1_RESULT_UPLOAD_TO_CHATGPT.zip",
+      "sha256": "878a5eb4da3673e195d200981dcdfb5f1b2fbd8453b374673efd2ee937056719",
+      "bytes": 12505,
+      "zip_members": 10,
+      "description": "Tiled vs Liger paired preliminary comparison"
+    },
+    {
+      "round": "R62",
+      "topic": "public_baseline_stability",
+      "path": "results/R62/SHV_R62_PROFILE_Q33_A0_RESULT_UPLOAD_TO_CHATGPT.zip",
+      "sha256": "533568cc9d1d31f4a91628b3bb080ef4bccb0439e48bc8127a651ddf86590591",
+      "bytes": 21656,
+      "zip_members": 13,
+      "description": "Three repeated Liger/Tiled pairs and profiler outputs"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 
 SHV investigates whether a model can retain **smaller, consumer-specific backward states** instead of keeping every original forward intermediate in GPU memory. The research asks what information a later gradient calculation actually needs, how to encode it, and when decoding or recomputation costs outweigh the saved memory.
 
-This repository preserves implementations, measurement protocols, and positive **and negative** results from experiments on GPT-2 Small. Its current Python package provides **evidence-inspection tools**, not a drop-in PyTorch replacement or a general GPU-memory extension. Selected original result archives are organized at the [Hugging Face artifact repository](https://huggingface.co/datasets/wuff-mann/Sub-loop-Heterocoding-VRAM).
+This repository preserves implementations, measurement protocols, and positive **and negative** results from experiments on GPT-2 Small. Its current Python package provides **evidence-inspection tools**, not a drop-in PyTorch replacement or a general GPU-memory extension. Selected result ZIPs and their hashes are available in this repository under [`artifacts/results/`](artifacts/results/). A companion [Hugging Face dataset repository](https://huggingface.co/datasets/wuff-mann/Sub-loop-Heterocoding-VRAM) has been created for the same archives; sync is not yet verified.
 
 > **Publication status:** this is a public research-preview repository, **not** a released production runtime. The software license is pending confirmation. All benchmarks are historical, scope-limited measurements; no 2× VRAM multiplier, universal inference support, or training-speed advantage is claimed.
 
@@ -48,7 +48,7 @@ The compressed carrier must be judged by **actual CUDA allocations, gradient fid
 
 ## What has been tested?
 
-The following are **different measurement scopes** and must not be conflated. Detailed records and original ZIPs (with SHA-256 checksums) belong in the companion artifact repository.
+The following are **different measurement scopes** and must not be conflated. Detailed records and original ZIPs (with SHA-256 checksums) are mirrored in [`artifacts/`](artifacts/), ready for HF synchronization.
 
 | Experiment | Condition and baseline | Measured result | Boundary |
 |:--|:--|:--|:--|
@@ -59,7 +59,7 @@ The following are **different measurement scopes** and must not be conflated. De
 | **R60, tiled output loss** | GPT-2 Small; T4; seq 512; AdamW8bit+checkpointing; FULL cross entropy | 2001.27 → 1421.98 MiB (28.95% less peak allocated), with 9.84% more step time | **Existing/public optimization family, not an SHV originality claim.** |
 | **R62, tiled vs Liger** | GPT-2 Small; T4; seq 512; 3 paired runs | TILED median step time ≈12.04% lower; memory ≈0.0084% lower | No material (>5%) memory advantage; limited hardware/workload. |
 
-Numerical checks from short runs are not evidence of long-run convergence or equal final model quality. The full provenance, protocols and per-run results are in `benchmarks/` and the [companion HF artifact repository](https://huggingface.co/datasets/wuff-mann/Sub-loop-Heterocoding-VRAM).
+Numerical checks from short runs are not evidence of long-run convergence or equal final model quality. The full provenance, protocols and per-run results are in `benchmarks/` and the [repository artifact mirror](artifacts/manifest.json). The HF dataset is a companion destination; online artifact synchronization remains to be verified.
 
 ### What failed (and why we keep those results)
 
@@ -103,7 +103,7 @@ python -m unittest discover -s tests -v
 
 On Windows, activate with `.venv\Scripts\Activate.ps1` in PowerShell.
 
-To check a result archive downloaded from the HF companion:
+To check a result archive downloaded from this repository’s `artifacts/results/` mirror (or later from HF):
 
 ```bash
 python -m shv_preview verify \
